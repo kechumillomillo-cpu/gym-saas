@@ -9,13 +9,11 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "baseUrl": "./",
-    "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": true,
-    "paths": {
-      "@gym-saas/database": ["../../packages/database/src"],
-      "@gym-saas/shared": ["../../packages/shared/src"]
-    }
-  }
+    "strictNullChecks": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

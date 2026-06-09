@@ -66,6 +66,7 @@ export const authApi = {
   refresh: (refreshToken: string) => api.post('/auth/refresh', { refreshToken }),
   logout: (refreshToken?: string) => api.post('/auth/logout', { refreshToken }),
   me: () => api.get('/auth/me'),
+  changePassword: (data: { currentPassword: string; newPassword: string }) => api.patch('/auth/change-password', data),
 }
 
 export const membersApi = {
@@ -86,11 +87,16 @@ export const routinesApi = {
   delete: (id: string) => api.delete(`/routines/${id}`),
   assign: (data: any) => api.post('/routines/assign', data),
   expiring: (days?: number) => api.get('/routines/expiring', { params: { days } }),
+  getMemberRoutine: (memberId: string) => api.get(`/routines/member/${memberId}`),
 }
 
 export const exercisesApi = {
   list: (params?: any) => api.get('/exercises', { params }),
+  get: (id: string) => api.get(`/exercises/${id}`),
   categories: () => api.get('/exercises/categories'),
+  create: (data: any) => api.post('/exercises', data),
+  update: (id: string, data: any) => api.patch(`/exercises/${id}`, data),
+  delete: (id: string) => api.delete(`/exercises/${id}`),
 }
 
 export const paymentsApi = {
@@ -160,4 +166,9 @@ export const adminApi = {
 export const notificationsApi = {
   list: (params?: any) => api.get('/notifications', { params }),
   sendCustom: (data: any) => api.post('/notifications/custom', data),
+  saveFcmToken: (token: string) => api.post('/notifications/fcm-token', { token }),
+}
+
+export const tenantsApi = {
+  getBySlug: (slug: string) => api.get(`/tenants/${slug}`),
 }

@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Query, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { NotificationsService } from './notifications.service'
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
-import { GetGymId, Roles } from '../../common/decorators'
+import { GetUser, GetGymId, Roles } from '../../common/decorators'
 import { RolesGuard } from '../../common/guards/roles.guard'
 
 @ApiTags('Notifications')
@@ -21,5 +21,10 @@ export class NotificationsController {
   @Roles('OWNER', 'ADMIN')
   sendCustom(@GetGymId() gymId: string, @Body() dto: { memberId?: string; title: string; body: string; channels: string[] }) {
     return this.service.sendCustom(gymId, dto)
+  }
+
+  @Post('fcm-token')
+  saveFcmToken(@GetUser('sub') userId: string, @Body('token') token: string) {
+    return this.service.saveFcmToken(userId, token)
   }
 }

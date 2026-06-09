@@ -19,7 +19,12 @@ import { DashboardModule } from './modules/dashboard/dashboard.module'
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      // En monorepo, el CWD cuando turbo ejecuta apps/api es la carpeta del workspace.
+      // Buscamos .env en el root del monorepo (../../) y también en apps/api/ como fallback.
+      envFilePath: ['../../.env', '.env'],
+    }),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
     ScheduleModule.forRoot(),
     PrismaModule,

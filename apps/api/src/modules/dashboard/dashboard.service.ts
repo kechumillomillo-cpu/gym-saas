@@ -120,7 +120,7 @@ export class DashboardService {
   }
 
   async getRevenueChart(gymId: string, months = 6) {
-    const data = []
+    const data: { month: string; revenue: number; payments: number }[] = []
     const now = new Date()
 
     for (let i = months - 1; i >= 0; i--) {

@@ -8,6 +8,7 @@ const config: Config = {
         primary: {
           50: '#fff1f2',
           100: '#ffe4e6',
+          400: '#f06b82',
           500: '#e94560',
           600: '#d63651',
           700: '#b91c3c',

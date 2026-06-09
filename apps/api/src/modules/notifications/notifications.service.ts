@@ -3,6 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule'
 import { PrismaService } from '../../common/prisma/prisma.service'
 import { EmailProvider } from './providers/email.provider'
 import { WhatsappProvider } from './providers/whatsapp.provider'
+import { PushProvider } from './providers/push.provider'
 import { ConfigService } from '@nestjs/config'
 import { PAYMENT_WARNING_DAYS, ROUTINE_WARNING_DAYS } from '@gym-saas/shared'
 
@@ -14,8 +15,13 @@ export class NotificationsService {
     private prisma: PrismaService,
     private email: EmailProvider,
     private whatsapp: WhatsappProvider,
+    private push: PushProvider,
     private config: ConfigService,
   ) {}
+
+  async saveFcmToken(userId: string, fcmToken: string) {
+    await this.prisma.user.update({ where: { id: userId }, data: { fcmToken } })
+  }
 
   @Cron(CronExpression.EVERY_DAY_AT_9AM)
   async processPaymentReminders() {

@@ -52,4 +52,9 @@ export class RoutinesController {
   assign(@GetGymId() gymId: string, @Body() dto: AssignRoutineDto) {
     return this.service.assign(gymId, dto)
   }
+
+  @Get('member/:memberId')
+  getMemberRoutine(@Param('memberId') memberId: string) {
+    return this.service.getMemberRoutine(memberId)
+  }
 }

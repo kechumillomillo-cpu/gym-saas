@@ -1,17 +1,17 @@
 'use client'
+import { use, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { membersApi, routinesApi } from '@/lib/api'
+import { membersApi } from '@/lib/api'
 import { formatCurrency, formatDate, statusColor, statusLabel, getDaysUntil, getInitials } from '@/lib/utils'
 import { cn } from '@/lib/utils'
-import { ArrowLeft, QrCode, Phone, Mail, Edit, Dumbbell, CreditCard, Clock, Activity, AlertCircle } from 'lucide-react'
+import { ArrowLeft, QrCode, Phone, Mail, Edit, Dumbbell, CreditCard, Clock, Activity } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
 import { MemberForm } from '@/components/members/MemberForm'
-import QRCodeComponent from 'qrcode.react'
+import { QRCodeSVG as QRCodeComponent } from 'qrcode.react'
 import toast from 'react-hot-toast'
 
-export default function MemberDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params
+export default function MemberDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const qc = useQueryClient()
   const [editing, setEditing] = useState(false)
   const [showQr, setShowQr] = useState(false)

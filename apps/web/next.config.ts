@@ -1,23 +1,5 @@
 import type { NextConfig } from 'next'
-
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-  runtimeCaching: [
-    {
-      urlPattern: /^https:\/\/fonts\.(?:gstatic|googleapis)\.com\/.*/i,
-      handler: 'CacheFirst',
-      options: { cacheName: 'google-fonts', expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 } },
-    },
-    {
-      urlPattern: /\/api\/v1\/dashboard\/stats/,
-      handler: 'NetworkFirst',
-      options: { cacheName: 'api-dashboard', expiration: { maxEntries: 1, maxAgeSeconds: 60 } },
-    },
-  ],
-})
+import withPWA from '@ducanh2912/next-pwa'
 
 const nextConfig: NextConfig = {
   images: {
@@ -27,9 +9,13 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'placehold.co' },
     ],
   },
-  experimental: {
-    serverActions: { allowedOrigins: ['localhost:3000'] },
-  },
 }
 
-module.exports = withPWA(nextConfig)
+// @ducanh2912/next-pwa v10 — API renovada respecto a next-pwa v5
+export default withPWA({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+})(nextConfig)
