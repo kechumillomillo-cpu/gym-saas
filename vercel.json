@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "outputDirectory": "apps/web/.next",
+  "buildCommand": "npx turbo run build --filter=@gym-saas/web",
+  "installCommand": "npm install",
+  "regions": ["gru1"]
+}

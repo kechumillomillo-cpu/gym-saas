@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "installCommand": "npm install --prefix ../.. && cd ../.. && npm run build --filter=@gym-saas/shared && npm run build --filter=@gym-saas/database",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "regions": ["gru1"]
+}

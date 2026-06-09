@@ -8,8 +8,22 @@ async function bootstrap() {
 
   app.setGlobalPrefix(process.env.API_PREFIX || 'api/v1')
 
+  const allowedOrigins = [
+    process.env.FRONTEND_URL || 'http://localhost:3000',
+    'http://localhost:3000',
+    'https://gym-saas-one.vercel.app',
+    'https://gym-saas-jesus-peralta.vercel.app',
+    'https://gym-saas-kechumillomillo-cpu-jesus-peralta.vercel.app',
+  ]
+
   app.enableCors({
-    origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+        callback(null, true)
+      } else {
+        callback(null, false)
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   })
